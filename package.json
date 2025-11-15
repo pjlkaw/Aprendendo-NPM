@@ -1,0 +1,20 @@
+{
+  "name": "do-zero",
+  "version": "1.0.0",
+  "description": "",
+  "main": "npm-teste.js",
+  "type": "module",
+  "devDependencies": {
+    "chalk": "^5.6.2"
+  },
+  "scripts": {
+    "start": "node npm-teste.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "inquirer": "^12.11.1"
+  }
+}
