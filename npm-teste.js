@@ -26,10 +26,13 @@ async function buscaUsuarios(id) {
     return null;
   }
 }
-
+const users = [];
 async function iniciar() {
   for (let i = 1; i <= 10; i++) {
-    await buscaUsuarios(i);
+    const user = await buscaUsuarios(i);
+    if (user) {
+      users.push(user);
+    }
   }
 
   const escolha = await inquirer.prompt([
@@ -43,10 +46,27 @@ async function iniciar() {
       ],
     },
   ]);
+  let usuarioEncontrado;
   let number;
   if (escolha.escolha == "1") {
-    console.log("Função em desenvolvimento");
-    return;
+    const resposta = await inquirer.prompt([
+      {
+        type: "input",
+        name: "nome",
+        message: "Escreva o nome de algum usuário da lista para pesquisar..:",
+        validate(value) {
+          usuarioEncontrado = users.find(
+            (user) => user.name.toLowerCase() === value.toLowerCase()
+          );
+          return usuarioEncontrado
+            ? true
+            : "Digite um nome válido ou reveja sua escrita";
+        },
+      },
+    ]);
+    console.log(chalk.green(`\nUsuário encontrado: ${usuarioEncontrado.name}`));
+    console.log(chalk.blue(`Email: ${usuarioEncontrado.email}`));
+    console.log(chalk.magenta(`Telefone: ${usuarioEncontrado.phone}\n`));
   } else if (escolha.escolha == "2") {
     const resposta = await inquirer.prompt([
       {
