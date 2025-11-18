@@ -34,25 +34,21 @@ async function iniciar() {
 
   const escolha = await inquirer.prompt([
     {
-      type: 'rawlist',
-      name: 'escolha',
-      message: 'Escolha o que quer fazer:',
+      type: "rawlist",
+      name: "escolha",
+      message: "Escolha o que quer fazer:",
       choices: [
-        { name: 'Busca por nome', value: '1'},
-        { name: 'Busca por ID', value: '2'}
-      ]
-    }
-  ])
-  if (escolha.value !== '1' && escolha.value != '2') {
-    console.log("Nenhuma das alternativas")
-    return
-  }
-  else if (escolha.value == '1') {
-    console.log('Função em desenvolvimento')
-    return
-  }
-  else if (escolha.value == '2') {
-    const { number } = await inquirer.prompt([
+        { name: "Busca por nome", value: "1" },
+        { name: "Busca por ID", value: "2" },
+      ],
+    },
+  ]);
+  let number;
+  if (escolha.escolha == "1") {
+    console.log("Função em desenvolvimento");
+    return;
+  } else if (escolha.escolha == "2") {
+    const resposta = await inquirer.prompt([
       {
         type: "input",
         name: "number",
@@ -60,23 +56,39 @@ async function iniciar() {
           "Escolha o número de algum usuário para inspecionar (entre 1 e 10) ..: ",
         validate(value) {
           const num = Number(value);
-          return num >= 1 && num <= 10 ? true : "Isso não é um número de 1 a 10";
+          return num >= 1 && num <= 10
+            ? true
+            : "Isso não é um número de 1 a 10";
         },
       },
     ]);
-  
+    number = resposta.number;
+    informacoes();
+  } else {
+    console.log("Nenhuma das alternativas");
+    return;
+  }
+
+  async function informacoes() {
     const user = await buscaUsuarios(Number(number));
-  
+
     if (user) {
       console.log(chalk.red(" USER ID - " + number));
       console.log(chalk.bgGray(chalk.hex("#FFE922")(` Nome: ${user.name} `)));
-      console.log(chalk.bgGray(chalk.hex("#4EFF22")(` Usuário: ${user.username} `)));
+      console.log(
+        chalk.bgGray(chalk.hex("#4EFF22")(` Usuário: ${user.username} `))
+      );
       console.log(chalk.bgGray(chalk.hex("#22FFCF")(` Email: ${user.email} `)));
-      console.log(chalk.bgGray(chalk.hex("#4A22FF")(` Telefone: ${user.phone} `)));
-      console.log(chalk.bgGray(chalk.hex("#FF22DA")(` Website: ${user.website} `)));
+      console.log(
+        chalk.bgGray(chalk.hex("#4A22FF")(` Telefone: ${user.phone} `))
+      );
+      console.log(
+        chalk.bgGray(chalk.hex("#FF22DA")(` Website: ${user.website} `))
+      );
       console.log(chalk.red("==========================="));
       console.log(chalk.red("FIM DO PROGRAMA"));
     }
   }
 }
+
 iniciar();
