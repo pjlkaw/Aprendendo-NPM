@@ -41,8 +41,9 @@ async function iniciar() {
       name: "escolha",
       message: "Escolha o que quer fazer:",
       choices: [
-        { name: chalk.yellow("Busca por nome "), value: "1" },
-        { name: chalk.yellow("Busca por ID "), value: "2" },
+        { name: chalk.yellow(" Busca por nome "), value: "1" },
+        { name: chalk.yellow(" Busca por ID "), value: "2" },
+        { name: chalk.yellow(" Busca por email "), value: "3"}
       ],
     },
   ]);
@@ -84,7 +85,22 @@ async function iniciar() {
     ]);
     number = resposta.number;
     informacoes();
-  } else {
+  } else if(escolha.escolha == "3"){
+    const resposta = async inquirer.prompt([
+      {
+        type: "input",
+        name: "email",
+        message: "Digite um email para pesquisar..:",
+        validate(value) {
+          
+        }
+      }
+    ])
+
+
+
+
+  }else {
     console.log("Nenhuma das alternativas");
     return;
   }
