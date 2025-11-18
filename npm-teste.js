@@ -38,8 +38,8 @@ async function iniciar() {
       name: "escolha",
       message: "Escolha o que quer fazer:",
       choices: [
-        { name: "Busca por nome", value: "1" },
-        { name: "Busca por ID", value: "2" },
+        { name: chalk.yellow("Busca por nome "), value: "1" },
+        { name: chalk.yellow("Busca por ID "), value: "2" },
       ],
     },
   ]);
