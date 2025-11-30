@@ -8,8 +8,6 @@ console.log(
   )
 );
 
-// const random = Math.floor(Math.random() * 10) + 1;
-
 async function buscaUsuarios(id) {
   try {
     const response = await axios.get(
@@ -33,15 +31,16 @@ async function iniciar() {
       users.push(user);
     }
   }
-  // INFORMAÇÕES DE UM USUARIO
+  // 
+  // INFORMAÇÕES DE UM USUARIO - PADRONIZAÇÃO
   // console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
   // console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
   // console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
   // console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
   // console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
   // console.log(chalk.red("==========================="));
-  // console.log(chalk.red("==========================="));
   // console.log(chalk.red("FIM DO PROGRAMA"));
+  // 
   //Escolha de função para busca
   const escolha = await inquirer.prompt([
     {
@@ -52,13 +51,13 @@ async function iniciar() {
         { name: chalk.yellow(" Busca por nome "), value: "1" },
         { name: chalk.yellow(" Busca por ID "), value: "2" },
         { name: chalk.yellow(" Busca por email "), value: "3" },
+        { name: chalk.yellow(" Busca Aleatória"), value: "4"}
       ],
     },
   ]);
   //valores de usuário
   let usuarioEncontrado;
   let number;
-  let emailEncontrado;
   //A ação e função
   //Busca por nome
   if (escolha.escolha == "1") {
@@ -172,7 +171,27 @@ async function iniciar() {
     console.log(chalk.red("==========================="));
     console.log(chalk.red("FIM DO PROGRAMA"));
     console.log(chalk.red("==========================="));
-  } else {
+  } 
+  //Busca aleatória
+  else if (escolha.escolha == "4") {
+    const random = Math.floor(Math.random() * 10) + 1;
+    buscaUsuarios(random)
+      .then((user) => {
+        console.log(chalk.green(`Nome: ${user.name}`));
+        console.log(chalk.green(`Email: ${user.email}`));
+        console.log(chalk.green(`Usuário: ${user.username} `));
+        console.log(chalk.green(`Telefone: ${user.phone}`));
+        console.log(chalk.green(`Website: ${user.website}`));
+        console.log(chalk.red("==========================="));
+        console.log(chalk.red("FIM DO PROGRAMA"));
+        console.log(chalk.red("==========================="));
+      })
+      .catch((error) => {
+        console.log(chalk.red("Erro"));
+        return iniciar();
+      });
+  }
+  else {
     console.log("Nenhuma das alternativas");
     return iniciar();
   }
