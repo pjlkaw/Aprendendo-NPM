@@ -8,7 +8,6 @@ console.log(
   )
 );
 
-// Fazer um menu de escolha com inquirer
 // const random = Math.floor(Math.random() * 10) + 1;
 
 async function buscaUsuarios(id) {
@@ -26,7 +25,7 @@ async function buscaUsuarios(id) {
     return null;
   }
 }
-const users = [];
+const users = []; // usuarios encontrados - usado para verificar se há valores em certo usuario ou não e outras coisas
 async function iniciar() {
   for (let i = 1; i <= 10; i++) {
     const user = await buscaUsuarios(i);
@@ -34,7 +33,16 @@ async function iniciar() {
       users.push(user);
     }
   }
-
+// INFORMAÇÕES DE UM USUARIO
+      // console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
+      // console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
+      // console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
+      // console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
+      // console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+      // console.log(chalk.red("==========================="));
+      // console.log(chalk.red("==========================="));
+      // console.log(chalk.red("FIM DO PROGRAMA"));
+  //Escolha de função para busca
   const escolha = await inquirer.prompt([
     {
       type: "rawlist",
@@ -43,12 +51,16 @@ async function iniciar() {
       choices: [
         { name: chalk.yellow(" Busca por nome "), value: "1" },
         { name: chalk.yellow(" Busca por ID "), value: "2" },
-        { name: chalk.yellow(" Busca por email "), value: "3"}
+        { name: chalk.yellow(" Busca por email "), value: "3" },
       ],
     },
   ]);
+  //valores de usuário
   let usuarioEncontrado;
   let number;
+  let emailEncontrado;
+  //A ação e função
+  //Busca por nome
   if (escolha.escolha == "1") {
     const resposta = await inquirer.prompt([
       {
@@ -88,7 +100,9 @@ async function iniciar() {
       console.log(chalk.red("FIM DO PROGRAMA"));
       console.log(chalk.red("==========================="));
     }
-  } else if (escolha.escolha == "2") {
+  }
+  //Busca por ID
+  else if (escolha.escolha == "2") {
     const resposta = await inquirer.prompt([
       {
         type: "input",
@@ -104,27 +118,6 @@ async function iniciar() {
       },
     ]);
     number = resposta.number;
-    informacoes();
-  } else if(escolha.escolha == "3"){
-    const resposta = async inquirer.prompt([
-      {
-        type: "input",
-        name: "email",
-        message: "Digite um email para pesquisar..:",
-        validate(value) {
-          
-        }
-      }
-    ])
-
-
-
-
-  }else {
-    console.log("Nenhuma das alternativas");
-    return;
-  }
-
   async function informacoes() {
     const user = await buscaUsuarios(Number(number));
 
@@ -144,6 +137,36 @@ async function iniciar() {
       console.log(chalk.red("==========================="));
       console.log(chalk.red("FIM DO PROGRAMA"));
     }
+  }
+    informacoes();
+  }
+  //Busca por email
+  else if (escolha.escolha == "3") {
+    const resposta = await inquirer.prompt([
+      {
+        type: "input",
+        name: "email",
+        message: "Digite um email para pesquisar..:",
+        validate(value) {
+          usuarioEncontrado = users.find(
+            (user) => user.email.toLowerCase() === value.toLowerCase()
+          );
+          return usuarioEncontrado
+            ? true
+            : "Digite um email valido ou reveja sua escrita";
+        },
+      },
+    ]);
+      console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
+      console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
+      console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
+      console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
+      console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+      console.log(chalk.red("==========================="));
+      console.log(chalk.red("FIM DO PROGRAMA"));
+  } else {
+    console.log("Nenhuma das alternativas");
+    return iniciar();
   }
 }
 
