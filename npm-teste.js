@@ -33,15 +33,15 @@ async function iniciar() {
       users.push(user);
     }
   }
-// INFORMAÇÕES DE UM USUARIO
-      // console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
-      // console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
-      // console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
-      // console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
-      // console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
-      // console.log(chalk.red("==========================="));
-      // console.log(chalk.red("==========================="));
-      // console.log(chalk.red("FIM DO PROGRAMA"));
+  // INFORMAÇÕES DE UM USUARIO
+  // console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
+  // console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
+  // console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
+  // console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
+  // console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+  // console.log(chalk.red("==========================="));
+  // console.log(chalk.red("==========================="));
+  // console.log(chalk.red("FIM DO PROGRAMA"));
   //Escolha de função para busca
   const escolha = await inquirer.prompt([
     {
@@ -91,9 +91,13 @@ async function iniciar() {
       },
     ]);
     if (respostaExtra) {
+      console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
+      console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
       console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
       console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
       console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+      console.log(chalk.red("==========================="));
+      console.log(chalk.red("FIM DO PROGRAMA"));
       console.log(chalk.red("==========================="));
     } else {
       console.log(chalk.red("==========================="));
@@ -118,26 +122,29 @@ async function iniciar() {
       },
     ]);
     number = resposta.number;
-  async function informacoes() {
-    const user = await buscaUsuarios(Number(number));
+    async function informacoes() {
+      const user = await buscaUsuarios(Number(number));
 
-    if (user) {
-      console.log(chalk.red(" USER ID - " + number));
-      console.log(chalk.bgGray(chalk.hex("#FFE922")(` Nome: ${user.name} `)));
-      console.log(
-        chalk.bgGray(chalk.hex("#4EFF22")(` Usuário: ${user.username} `))
-      );
-      console.log(chalk.bgGray(chalk.hex("#22FFCF")(` Email: ${user.email} `)));
-      console.log(
-        chalk.bgGray(chalk.hex("#4A22FF")(` Telefone: ${user.phone} `))
-      );
-      console.log(
-        chalk.bgGray(chalk.hex("#FF22DA")(` Website: ${user.website} `))
-      );
-      console.log(chalk.red("==========================="));
-      console.log(chalk.red("FIM DO PROGRAMA"));
+      if (user) {
+        console.log(chalk.red(" USER ID - " + number));
+        console.log(chalk.bgGray(chalk.hex("#FFE922")(` Nome: ${user.name} `)));
+        console.log(
+          chalk.bgGray(chalk.hex("#4EFF22")(` Usuário: ${user.username} `))
+        );
+        console.log(
+          chalk.bgGray(chalk.hex("#22FFCF")(` Email: ${user.email} `))
+        );
+        console.log(
+          chalk.bgGray(chalk.hex("#4A22FF")(` Telefone: ${user.phone} `))
+        );
+        console.log(
+          chalk.bgGray(chalk.hex("#FF22DA")(` Website: ${user.website} `))
+        );
+        console.log(chalk.red("==========================="));
+        console.log(chalk.red("FIM DO PROGRAMA"));
+        console.log(chalk.red("==========================="));
+      }
     }
-  }
     informacoes();
   }
   //Busca por email
@@ -157,13 +164,14 @@ async function iniciar() {
         },
       },
     ]);
-      console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
-      console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
-      console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
-      console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
-      console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
-      console.log(chalk.red("==========================="));
-      console.log(chalk.red("FIM DO PROGRAMA"));
+    console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
+    console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
+    console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
+    console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
+    console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+    console.log(chalk.red("==========================="));
+    console.log(chalk.red("FIM DO PROGRAMA"));
+    console.log(chalk.red("==========================="));
   } else {
     console.log("Nenhuma das alternativas");
     return iniciar();
