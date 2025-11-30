@@ -31,16 +31,18 @@ async function iniciar() {
       users.push(user);
     }
   }
-  // 
+  //
   // INFORMAÇÕES DE UM USUARIO - PADRONIZAÇÃO
-  // console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
-  // console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
-  // console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
-  // console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
-  // console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
-  // console.log(chalk.red("==========================="));
-  // console.log(chalk.red("FIM DO PROGRAMA"));
-  // 
+  function informacoes(usuarioEncontrado) {
+    console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
+    console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
+    console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
+    console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
+    console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+    console.log(chalk.red("==========================="));
+    console.log(chalk.red("FIM DO PROGRAMA"));
+    console.log(chalk.red("==========================="));
+  }
   //Escolha de função para busca
   const escolha = await inquirer.prompt([
     {
@@ -51,7 +53,7 @@ async function iniciar() {
         { name: chalk.yellow(" Busca por nome "), value: "1" },
         { name: chalk.yellow(" Busca por ID "), value: "2" },
         { name: chalk.yellow(" Busca por email "), value: "3" },
-        { name: chalk.yellow(" Busca Aleatória"), value: "4"}
+        { name: chalk.yellow(" Busca Aleatória"), value: "4" },
       ],
     },
   ]);
@@ -90,14 +92,7 @@ async function iniciar() {
       },
     ]);
     if (respostaExtra) {
-      console.log(chalk.green(`Nome: ${usuarioEncontrado.name}`));
-      console.log(chalk.green(`Email: ${usuarioEncontrado.email}`));
-      console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
-      console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
-      console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
-      console.log(chalk.red("==========================="));
-      console.log(chalk.red("FIM DO PROGRAMA"));
-      console.log(chalk.red("==========================="));
+      informacoes(usuarioEncontrado)
     } else {
       console.log(chalk.red("==========================="));
       console.log(chalk.red("FIM DO PROGRAMA"));
@@ -121,30 +116,21 @@ async function iniciar() {
       },
     ]);
     number = resposta.number;
-    async function informacoes() {
+    async function informacoesID() {
       const user = await buscaUsuarios(Number(number));
 
       if (user) {
-        console.log(chalk.red(" USER ID - " + number));
-        console.log(chalk.bgGray(chalk.hex("#FFE922")(` Nome: ${user.name} `)));
-        console.log(
-          chalk.bgGray(chalk.hex("#4EFF22")(` Usuário: ${user.username} `))
-        );
-        console.log(
-          chalk.bgGray(chalk.hex("#22FFCF")(` Email: ${user.email} `))
-        );
-        console.log(
-          chalk.bgGray(chalk.hex("#4A22FF")(` Telefone: ${user.phone} `))
-        );
-        console.log(
-          chalk.bgGray(chalk.hex("#FF22DA")(` Website: ${user.website} `))
-        );
+        console.log(chalk.green(`Nome: ${user.name}`));
+        console.log(chalk.green(`Email: ${user.email}`));
+        console.log(chalk.green(`Usuário: ${user.username} `));
+        console.log(chalk.green(`Telefone: ${user.phone}`));
+        console.log(chalk.green(`Website: ${user.website}`));
         console.log(chalk.red("==========================="));
         console.log(chalk.red("FIM DO PROGRAMA"));
         console.log(chalk.red("==========================="));
       }
     }
-    informacoes();
+    informacoesID();
   }
   //Busca por email
   else if (escolha.escolha == "3") {
@@ -171,27 +157,19 @@ async function iniciar() {
     console.log(chalk.red("==========================="));
     console.log(chalk.red("FIM DO PROGRAMA"));
     console.log(chalk.red("==========================="));
-  } 
+  }
   //Busca aleatória
   else if (escolha.escolha == "4") {
     const random = Math.floor(Math.random() * 10) + 1;
     buscaUsuarios(random)
       .then((user) => {
-        console.log(chalk.green(`Nome: ${user.name}`));
-        console.log(chalk.green(`Email: ${user.email}`));
-        console.log(chalk.green(`Usuário: ${user.username} `));
-        console.log(chalk.green(`Telefone: ${user.phone}`));
-        console.log(chalk.green(`Website: ${user.website}`));
-        console.log(chalk.red("==========================="));
-        console.log(chalk.red("FIM DO PROGRAMA"));
-        console.log(chalk.red("==========================="));
+        informacoes(user)
       })
       .catch((error) => {
         console.log(chalk.red("Erro"));
         return iniciar();
       });
-  }
-  else {
+  } else {
     console.log("Nenhuma das alternativas");
     return iniciar();
   }
