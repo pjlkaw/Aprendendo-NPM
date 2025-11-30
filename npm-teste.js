@@ -65,9 +65,29 @@ async function iniciar() {
         },
       },
     ]);
+    console.log(chalk.red("==========================="));
     console.log(chalk.green(`\nUsuário encontrado: ${usuarioEncontrado.name}`));
-    console.log(chalk.blue(`Email: ${usuarioEncontrado.email}`));
-    console.log(chalk.magenta(`Telefone: ${usuarioEncontrado.phone}\n`));
+    console.log(chalk.magenta(`Email: ${usuarioEncontrado.email}`));
+    console.log(chalk.red("==========================="));
+    //perguntar se usuario quer mais informações ou não
+    const respostaExtra = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "input",
+        message: "Gostaria de mais informações desse usuário?",
+        default: true,
+      },
+    ]);
+    if (respostaExtra) {
+      console.log(chalk.green(`Usuário: ${usuarioEncontrado.username} `));
+      console.log(chalk.green(`Telefone: ${usuarioEncontrado.phone}`));
+      console.log(chalk.green(`Website: ${usuarioEncontrado.website}`));
+      console.log(chalk.red("==========================="));
+    } else {
+      console.log(chalk.red("==========================="));
+      console.log(chalk.red("FIM DO PROGRAMA"));
+      console.log(chalk.red("==========================="));
+    }
   } else if (escolha.escolha == "2") {
     const resposta = await inquirer.prompt([
       {
