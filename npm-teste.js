@@ -60,7 +60,6 @@ async function iniciar() {
   //valores de usuário
   let usuarioEncontrado;
   let number;
-  //A ação e função
   //Busca por nome
   if (escolha.escolha == "1") {
     const resposta = await inquirer.prompt([
@@ -92,7 +91,7 @@ async function iniciar() {
       },
     ]);
     if (respostaExtra) {
-      informacoes(usuarioEncontrado)
+      informacoes(usuarioEncontrado);
     } else {
       console.log(chalk.red("==========================="));
       console.log(chalk.red("FIM DO PROGRAMA"));
@@ -163,7 +162,7 @@ async function iniciar() {
     const random = Math.floor(Math.random() * 10) + 1;
     buscaUsuarios(random)
       .then((user) => {
-        informacoes(user)
+        informacoes(user);
       })
       .catch((error) => {
         console.log(chalk.red("Erro"));
