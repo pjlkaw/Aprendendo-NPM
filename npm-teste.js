@@ -173,5 +173,5 @@ async function iniciar() {
     return iniciar();
   }
 }
-
+//FAZER IMPLEMENTAÇÃO DE IA PARA COMENTAR UM TEXTO DESCREVENDO A PESSOA SELECIONADA
 iniciar();
