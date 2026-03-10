@@ -4,7 +4,6 @@ import inquirer from "inquirer"; //INPUT
 import Groq from "groq-sdk"; //AI
 
 import 'dotenv/config'
-import { log } from "node:console";
 
 console.log(
   chalk.yellow(
@@ -227,13 +226,6 @@ async function iniciar() {
         console.log(chalk.yellow("\n======================\n"));
       }
       main()
-
-    
-    
-    // const groq = new Groq({ 
-    //   apiKey: process.env.GROQ_API_KEY
-    // });
-    // openai()
   }
   
   
