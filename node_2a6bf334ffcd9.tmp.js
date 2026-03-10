@@ -1,14 +1,10 @@
-import chalk from "chalk"; // CORES
-import axios from "axios";  //API
-import inquirer from "inquirer"; //INPUT
-import Groq from "groq-sdk"; //AI
-
-import 'dotenv/config'
-import { log } from "node:console";
+import chalk from "chalk";
+import axios from "axios";
+import inquirer from "inquirer";
 
 console.log(
   chalk.yellow(
-    chalk.bgGray(" JSON PlaceHolder com Chalk, Axios, Inquirer, Math e Implementação de IA")
+    chalk.bgGray(" JSON PlaceHolder com Chalk, Axios, Inquirer e Math ")
   )
 );
 
@@ -57,8 +53,7 @@ async function iniciar() {
         { name: chalk.yellow(" Busca por nome "), value: "1" },
         { name: chalk.yellow(" Busca por ID "), value: "2" },
         { name: chalk.yellow(" Busca por email "), value: "3" },
-        { name: chalk.yellow(" Busca Aleatória "), value: "4" },
-        { name: chalk.yellow(" Busca com AI "), value: "5" },
+        { name: chalk.yellow(" Busca Aleatória"), value: "4" },
       ],
     },
   ]);
@@ -173,71 +168,7 @@ async function iniciar() {
         console.log(chalk.red("Erro"));
         return iniciar();
       });
-  } 
-  //Busca por IA
-  else if (escolha.escolha == "5") {
-    
-    const resposta = await inquirer.prompt([
-      {
-        type: "input",
-        name: "number",
-        message:
-          "Selecione o ID da pessoa para a IA fazer um resumo das características..:",
-        validate(value) {
-
-          const num = Number(value);
-          return num >= 1 && num <= 10 ? true : "Insira um ID válido!"
-        },
-      },
-    ]);
-    const id = Number(resposta.number)
-    const user = users.find(u => u.id === id)
-      if (!user) { //validação
-        console.log(chalk.red("Usuário não encontrado"))
-        return
-      }
-
-      const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
-      async function getGroqChatCompletion() {
-        return groq.chat.completions.create({
-          messages: [
-            {
-              role: "user",
-              content: `
-                Faça um resumo sobre o usúario em português, faça um texto corrido e sem formatação alguma, apenas acentos e sem caracteres como "*", "()" e etc
-                
-                Informações do usuário:
-
-                Nome: ${user.name}
-                Username: ${user.username}
-                Email: ${user.email}
-                Cidade: ${user.address.city}
-              `,
-            },
-          ],
-          model: "openai/gpt-oss-20b",
-        });
-      }
-      
-      console.log(chalk.yellow("\nResumo gerado pela IA:\n"));
-      async function main() {
-        const chatCompletion = await getGroqChatCompletion();
-        console.log(chatCompletion.choices[0]?.message?.content || "");
-        console.log(chalk.yellow("\n======================\n"));
-      }
-      main()
-
-    
-    
-    // const groq = new Groq({ 
-    //   apiKey: process.env.GROQ_API_KEY
-    // });
-    // openai()
-  }
-  
-  
-  else {
+  } else {
     console.log("Nenhuma das alternativas");
     return iniciar();
   }
